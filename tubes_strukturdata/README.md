@@ -106,7 +106,7 @@ Relasi yang terhubung ke barang akan ditangani pada bagian lanjutan.
 
 # 3. Instruksi Melanjutkan Bagian F–I
 
-Bagian berikut harus dikerjakan oleh partner Anda.  
+Bagian berikut harus dikerjakan.  
 Struktur dan pondasi datanya sudah lengkap — hanya tinggal menambahkan fungsi baru.
 
 ---
