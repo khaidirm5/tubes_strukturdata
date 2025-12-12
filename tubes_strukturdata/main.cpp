@@ -27,12 +27,16 @@ int main() {
 
     int pilihan;
     do {
-        cout << "\nINI ADALAH BAGIAN A SAMPAI E\n";
+        cout << "\n=== MENU APLIKASI DATA TOKO & BARANG ===\n";
         cout << "1. Tambah Toko\n";
         cout << "2. Tambah Barang\n";
         cout << "3. Hubungkan Toko dan Barang\n";
         cout << "4. Hapus Toko\n";
         cout << "5. Hapus Barang\n";
+        cout << "6. Tampil Semua Toko & Barangnya";
+        cout << "7. Cari Barang di Toko Tertentu";
+        cout << "8. Cari Toko Penjual Barang Tertentu";
+        cout << "9. Statistik Toko Terlengkap/Tersedikit";
         cout << "0. Keluar\n";
         cout << "Pilih: ";
         cin >> pilihan;
@@ -64,9 +68,9 @@ int main() {
             if (T != nullptr && B != nullptr) {
                 addressRelasi R = buatRelasi(T, B);
                 insertRelasi(LR, R);
-                cout << "Relasi toko-barang dibuat.\n";
+                cout << "Relasi toko-barang berhasil dibuat.\n";
             } else {
-                cout << "ID tidak ditemukan!\n";
+                cout << "ID Toko atau Barang tidak ditemukan!\n";
             }
 
         } else if (pilihan == 4) {
@@ -96,10 +100,27 @@ int main() {
             } else {
                 cout << "Barang tidak ditemukan.\n";
             }
+
+        } else if (pilihan == 6) {
+            tampilSemuaTokoBesertaBarang(LT, LR);
+
+        } else if (pilihan == 7) {
+            string id;
+            cout << "Masukkan ID Toko: ";
+            cin >> id;
+            tampilBarangDariToko(LT, LR, id);
+
+        } else if (pilihan == 8) {
+            string id;
+            cout << "Masukkan ID Barang: ";
+            cin >> id;
+            tampilTokoDariBarang(LB, LR, id);
+
+        } else if (pilihan == 9) {
+            tokoPalingLengkapDanSedikit(LT, LR);
         }
 
     } while (pilihan != 0);
 
     return 0;
 }
-
