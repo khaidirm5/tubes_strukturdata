@@ -19,7 +19,6 @@ struct ElmRelasi {
 
 typedef ElmRelasi* addressRelasi;
 
-
 addressRelasi buatRelasi(addressToko T, addressBarang B);
 
 #endif

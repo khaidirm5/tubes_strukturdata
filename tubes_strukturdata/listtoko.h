@@ -16,7 +16,7 @@ struct ListToko {
 
 void createListToko(ListToko &L);
 addressToko buatElmToko(infotypeToko x);
-void insertToko(ListToko &L, addressToko P);
+void insertToko(ListToko &L, addressToko P); // insert FIRST
 void deleteToko(ListToko &L, std::string id);
 addressToko findToko(ListToko L, std::string id);
 

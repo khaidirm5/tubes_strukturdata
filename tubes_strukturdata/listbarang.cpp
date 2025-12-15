@@ -6,7 +6,6 @@
 //
 
 #include "listbarang.h"
-#include <iostream>
 
 void createListBarang(ListBarang &L) {
     L.first = nullptr;
@@ -19,9 +18,17 @@ addressBarang buatElmBarang(infotypeBarang x) {
     return P;
 }
 
+// INSERT LAST (WAJIB beda)
 void insertBarang(ListBarang &L, addressBarang P) {
-    P->next = L.first;
-    L.first = P;
+    if (L.first == nullptr) {
+        L.first = P;
+    } else {
+        addressBarang Q = L.first;
+        while (Q->next != nullptr) {
+            Q = Q->next;
+        }
+        Q->next = P;
+    }
 }
 
 addressBarang findBarang(ListBarang L, std::string id) {
@@ -33,8 +40,7 @@ addressBarang findBarang(ListBarang L, std::string id) {
 }
 
 void deleteBarang(ListBarang &L, std::string id) {
-    addressBarang P = L.first;
-    addressBarang prev = nullptr;
+    addressBarang P = L.first, prev = nullptr;
 
     while (P != nullptr && P->info.idBarang != id) {
         prev = P;

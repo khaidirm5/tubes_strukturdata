@@ -24,7 +24,6 @@ struct ElmToko {
 
 typedef ElmToko* addressToko;
 
-// TAMBAHKAN INI
 void inputToko(infotypeToko &x);
 
 #endif

@@ -6,7 +6,6 @@
 //
 
 #include "listtoko.h"
-#include <iostream>
 
 void createListToko(ListToko &L) {
     L.first = nullptr;
@@ -19,6 +18,7 @@ addressToko buatElmToko(infotypeToko x) {
     return P;
 }
 
+// INSERT FIRST
 void insertToko(ListToko &L, addressToko P) {
     P->next = L.first;
     L.first = P;
@@ -33,8 +33,7 @@ addressToko findToko(ListToko L, std::string id) {
 }
 
 void deleteToko(ListToko &L, std::string id) {
-    addressToko P = L.first;
-    addressToko prev = nullptr;
+    addressToko P = L.first, prev = nullptr;
 
     while (P != nullptr && P->info.idToko != id) {
         prev = P;

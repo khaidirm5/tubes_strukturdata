@@ -16,8 +16,11 @@ struct ListRelasi {
 
 void createListRelasi(ListRelasi &L);
 void insertRelasi(ListRelasi &L, addressRelasi R);
-void deleteRelasiToko(ListRelasi &L, addressToko T);
-void deleteRelasiBarang(ListRelasi &L, addressBarang B);
+
+/* DIPERBAIKI */
+void deleteAllRelasiToko(ListRelasi &L, addressToko T);
+void deleteAllRelasiBarang(ListRelasi &L, addressBarang B);
+
 void printRelasi(ListRelasi L);
 
 #endif

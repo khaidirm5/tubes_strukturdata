@@ -6,7 +6,6 @@
 //
 
 #include "relasi.h"
-#include <iostream>
 
 addressRelasi buatRelasi(addressToko T, addressBarang B) {
     addressRelasi R = new ElmRelasi;

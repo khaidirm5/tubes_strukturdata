@@ -17,39 +17,53 @@ void insertRelasi(ListRelasi &L, addressRelasi R) {
     L.first = R;
 }
 
-void deleteRelasiToko(ListRelasi &L, addressToko T) {
-    addressRelasi P = L.first, prev = nullptr;
+/* HAPUS SEMUA RELASI TOKO */
+void deleteAllRelasiToko(ListRelasi &L, addressToko T) {
+    addressRelasi P = L.first;
+    addressRelasi prev = nullptr;
 
     while (P != nullptr) {
         if (P->toko == T) {
-            if (prev == nullptr)
-                L.first = P->next;
-            else
-                prev->next = P->next;
+            addressRelasi temp = P;
 
-            delete P;
-            return;
+            if (prev == nullptr) {
+                L.first = P->next;
+                P = L.first;
+            } else {
+                prev->next = P->next;
+                P = P->next;
+            }
+
+            delete temp;
+        } else {
+            prev = P;
+            P = P->next;
         }
-        prev = P;
-        P = P->next;
     }
 }
 
-void deleteRelasiBarang(ListRelasi &L, addressBarang B) {
-    addressRelasi P = L.first, prev = nullptr;
+/* HAPUS SEMUA RELASI BARANG */
+void deleteAllRelasiBarang(ListRelasi &L, addressBarang B) {
+    addressRelasi P = L.first;
+    addressRelasi prev = nullptr;
 
     while (P != nullptr) {
         if (P->barang == B) {
-            if (prev == nullptr)
-                L.first = P->next;
-            else
-                prev->next = P->next;
+            addressRelasi temp = P;
 
-            delete P;
-            return;
+            if (prev == nullptr) {
+                L.first = P->next;
+                P = L.first;
+            } else {
+                prev->next = P->next;
+                P = P->next;
+            }
+
+            delete temp;
+        } else {
+            prev = P;
+            P = P->next;
         }
-        prev = P;
-        P = P->next;
     }
 }
 
@@ -58,8 +72,7 @@ void printRelasi(ListRelasi L) {
     while (P != nullptr) {
         std::cout << P->toko->info.namaToko
                   << " menjual "
-                  << P->barang->info.namaBarang << "\n";
+                  << P->barang->info.namaBarang << std::endl;
         P = P->next;
     }
 }
-    

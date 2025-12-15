@@ -13,6 +13,7 @@
 struct Barang {
     std::string idBarang;
     std::string namaBarang;
+    int harga;
 };
 
 typedef Barang infotypeBarang;
@@ -24,8 +25,8 @@ struct ElmBarang {
 
 typedef ElmBarang* addressBarang;
 
-
 void inputBarang(infotypeBarang &x);
 
 #endif
+
 

@@ -6,15 +6,41 @@
 //
 
 #include <iostream>
-#include "toko.h"
-#include "barang.h"
-#include "relasi.h"
+#include <string>
 
 #include "listtoko.h"
 #include "listbarang.h"
 #include "listrelasi.h"
 
 using namespace std;
+
+void tampilkanSemuaData(ListToko LT, ListRelasi LR) {
+    addressToko T = LT.first;
+
+    while (T != nullptr) {
+        cout << "Toko: " << T->info.idToko
+             << " | " << T->info.namaToko << endl;
+        cout << "Barang yang dijual:\n";
+
+        bool adaBarang = false;
+        addressRelasi R = LR.first;
+
+        while (R != nullptr) {
+            if (R->toko == T) {
+                adaBarang = true;
+                cout << "ID: " << R->barang->info.idBarang << endl;
+                cout << "Nama: " << R->barang->info.namaBarang << endl;
+                cout << "Harga: " << R->barang->info.harga << endl << endl;
+            }
+            R = R->next;
+        }
+
+        if (!adaBarang) {
+            cout << "(Belum ada barang)\n\n";
+        }
+        T = T->next;
+    }
+}
 
 int main() {
     ListToko LT;
@@ -25,81 +51,76 @@ int main() {
     createListBarang(LB);
     createListRelasi(LR);
 
-    int pilihan;
+    int menu;
+    string input;
+
     do {
-        cout << "\nINI ADALAH BAGIAN A SAMPAI E\n";
-        cout << "1. Tambah Toko\n";
-        cout << "2. Tambah Barang\n";
-        cout << "3. Hubungkan Toko dan Barang\n";
-        cout << "4. Hapus Toko\n";
-        cout << "5. Hapus Barang\n";
+        cout << "===== MENU =====\n";
+        cout << "1. Input data toko\n";
+        cout << "2. Input data barang (pilih toko)\n";
+        cout << "3. Tampilkan seluruh data toko dan barang\n";
         cout << "0. Keluar\n";
-        cout << "Pilih: ";
-        cin >> pilihan;
+        cout << "Pilih menu: ";
+        getline(cin, input);
+        menu = stoi(input);
 
-        if (pilihan == 1) {
-            infotypeToko x;
-            inputToko(x);
-            addressToko P = buatElmToko(x);
-            insertToko(LT, P);
-            cout << "Toko berhasil ditambahkan.\n";
+        if (menu == 1) {
+            char lagi;
+            do {
+                infotypeToko x;
+                inputToko(x);
+                insertToko(LT, buatElmToko(x));
 
-        } else if (pilihan == 2) {
-            infotypeBarang y;
-            inputBarang(y);
-            addressBarang Q = buatElmBarang(y);
-            insertBarang(LB, Q);
-            cout << "Barang berhasil ditambahkan.\n";
-
-        } else if (pilihan == 3) {
-            string idT, idB;
-            cout << "ID Toko   : ";
-            cin >> idT;
-            cout << "ID Barang : ";
-            cin >> idB;
-
-            addressToko T = findToko(LT, idT);
-            addressBarang B = findBarang(LB, idB);
-
-            if (T != nullptr && B != nullptr) {
-                addressRelasi R = buatRelasi(T, B);
-                insertRelasi(LR, R);
-                cout << "Relasi toko-barang dibuat.\n";
-            } else {
-                cout << "ID tidak ditemukan!\n";
-            }
-
-        } else if (pilihan == 4) {
-            string id;
-            cout << "Masukkan ID toko yang akan dihapus: ";
-            cin >> id;
-
-            addressToko T = findToko(LT, id);
-            if (T != nullptr) {
-                deleteRelasiToko(LR, T);
-                deleteToko(LT, id);
-                cout << "Toko dan relasinya berhasil dihapus.\n";
-            } else {
-                cout << "Toko tidak ditemukan.\n";
-            }
-
-        } else if (pilihan == 5) {
-            string id;
-            cout << "Masukkan ID barang yang akan dihapus: ";
-            cin >> id;
-
-            addressBarang B = findBarang(LB, id);
-            if (B != nullptr) {
-                deleteRelasiBarang(LR, B);
-                deleteBarang(LB, id);
-                cout << "Barang dan relasinya berhasil dihapus.\n";
-            } else {
-                cout << "Barang tidak ditemukan.\n";
-            }
+                cout << "Tambah toko lagi? (y/n): ";
+                cin >> lagi;
+                cin.ignore();
+            } while (lagi == 'y' || lagi == 'Y');
         }
 
-    } while (pilihan != 0);
+        else if (menu == 2) {
+            if (LT.first == nullptr) {
+                cout << "Belum ada toko.\n";
+                continue;
+            }
+
+            cout << "\nDaftar Toko:\n";
+            addressToko T = LT.first;
+            while (T != nullptr) {
+                cout << "- " << T->info.idToko
+                     << " (" << T->info.namaToko << ")\n";
+                T = T->next;
+            }
+
+            string idToko;
+            cout << "Pilih ID Toko: ";
+            getline(cin, idToko);
+
+            addressToko pilihToko = findToko(LT, idToko);
+            if (pilihToko == nullptr) {
+                cout << "Toko tidak ditemukan.\n";
+                continue;
+            }
+
+            char lagi;
+            do {
+                infotypeBarang b;
+                inputBarang(b);
+
+                addressBarang PB = buatElmBarang(b);
+                insertBarang(LB, PB);
+                insertRelasi(LR, buatRelasi(pilihToko, PB));
+
+                cout << "Tambah barang lagi? (y/n): ";
+                cin >> lagi;
+                cin.ignore();
+            } while (lagi == 'y' || lagi == 'Y');
+        }
+
+        else if (menu == 3) {
+            tampilkanSemuaData(LT, LR);
+        }
+
+    } while (menu != 0);
 
     return 0;
 }
-

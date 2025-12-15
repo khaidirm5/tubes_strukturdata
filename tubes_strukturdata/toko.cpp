@@ -8,10 +8,12 @@
 #include "toko.h"
 #include <iostream>
 
-void inputToko(infotypeToko &x) {
-    std::cout << "Masukkan ID Toko: ";
-    std::cin >> x.idToko;
+using namespace std;
 
-    std::cout << "Masukkan Nama Toko: ";
-    std::cin >> x.namaToko;
+void inputToko(infotypeToko &x) {
+    cout << "Masukkan ID Toko        : ";
+    getline(cin, x.idToko);
+
+    cout << "Masukkan Nama Toko      : ";
+    getline(cin, x.namaToko);
 }

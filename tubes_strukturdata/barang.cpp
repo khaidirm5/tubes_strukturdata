@@ -7,11 +7,20 @@
 
 #include "barang.h"
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 void inputBarang(infotypeBarang &x) {
-    std::cout << "Masukkan ID Barang: ";
-    std::cin >> x.idBarang;
+    string temp;
 
-    std::cout << "Masukkan Nama Barang: ";
-    std::cin >> x.namaBarang;
+    cout << "Masukkan ID Barang   : ";
+    getline(cin, x.idBarang);
+
+    cout << "Masukkan Nama Barang : ";
+    getline(cin, x.namaBarang);
+
+    cout << "Masukkan Harga       : ";
+    getline(cin, temp);
+    x.harga = stoi(temp);   // konversi string → int
 }
