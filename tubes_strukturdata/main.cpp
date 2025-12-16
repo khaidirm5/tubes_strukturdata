@@ -59,9 +59,9 @@ int main() {
         cout << "\n===== MENU DATA PENJUALAN =====\n";
         cout << "1. Input data toko\n";
         cout << "2. Input data barang\n";
-        cout << "3. Tampilkan seluruh data\n";
-        cout << "4. Cari Barang di Toko Tertentu \n";
-        cout << "5. Data Keseluruhan Toko beserta data barang\n";
+        cout << "3. Tampilkan seluruh data (Show All)\n";
+        cout << "4. Cari Barang di Toko Tertentu (Search by Toko)\n";
+        cout << "5. Cari Toko yang Jual Barang Tertentu (Search by Nama Barang)\n";
         cout << "6. Toko Terlengkap dan Sedikit\n";
         cout << "7. Hapus Data Toko\n";
         cout << "8. Hapus Data Barang\n";
@@ -90,44 +90,71 @@ int main() {
         }
 
         else if (menu == 2) {
-            if (LT.first == nullptr) {
-                cout << "Belum ada toko.\n";
-                continue;
-            }
+                    if (LT.first == nullptr) {
+                        cout << "Belum ada toko. Silakan input toko dulu.\n";
+                        continue;
+                    }
+            
+                    string id;
+                    cout << "Masukkan ID Toko tujuan: ";
+                    getline(cin, id);
 
-            string id;
-            cout << "ID Toko: ";
-            getline(cin, id);
+                    addressToko T = findToko(LT, id);
+                    if (T == nullptr) {
+                        cout << "Toko tidak ditemukan.\n";
+                        continue;
+                    }
 
-            addressToko T = findToko(LT, id);
-            if (!T) {
-                cout << "Toko tidak ditemukan.\n";
-                continue;
-            }
+                    char pilihan;
+                    do {
+                        if (hitungBarangToko(LR, T) >= 3) {
+                            cout << "PERINGATAN: Toko ini sudah penuh (Maksimal 3 barang).\n";
+                            cout << "Tidak bisa menambah barang lagi.\n";
+                            break;
+                        }
 
-            if (hitungBarangToko(LR, T) >= 3) {
-                cout << "Data barang maksimal 3 per toko.\n";
-                continue;
-            }
+                        cout << "\n--- Tambah Barang ke " << T->info.namaToko << " ---\n";
+                        infotypeBarang b;
+                        inputBarang(b);
 
-            infotypeBarang b;
-            inputBarang(b);
-            addressBarang B = buatElmBarang(b);
-            insertBarang(LB, B);
-            insertRelasi(LR, buatRelasi(T, B));
-        }
+                        addressBarang B = buatElmBarang(b);
+                        insertBarang(LB, B);
+                        insertRelasi(LR, buatRelasi(T, B));
+                        cout << "Barang berhasil disimpan.\n";
+
+                        cout << "Apakah ingin menambah barang lagi ke toko ini? (y/n): ";
+                        cin >> pilihan;
+                        cin.ignore();
+
+                    } while (pilihan == 'y' || pilihan == 'Y');
+                }
 
         else if (menu == 3) tampilkanSemuaData(LT, LR);
 
         else if (menu == 4) {
+                    string idToko, keyword;
+                    cout << "Masukkan ID Toko: ";
+                    getline(cin, idToko);
+
+                    addressToko T = findToko(LT, idToko);
+                    
+                    if (T != nullptr) {
+                        cout << "Toko Ditemukan: " << T->info.namaToko << endl;
+                        cout << "Masukkan ID atau Nama Barang yang dicari: ";
+                        getline(cin, keyword);
+
+                        searchBarangInToko(LR, T, keyword);
+                    } else {
+                        cout << "Toko dengan ID tersebut tidak ditemukan.\n";
+                    }
+                }
+
+        else if (menu == 5) {
             string nama;
             cout << "Masukkan Nama Barang yang dicari (misal: Sabun): ";
             getline(cin, nama);
+            
             printTokoByNamaBarang(LR, nama);
-        }
-
-        else if (menu == 5) {
-            tampilkanSemuaData(LT, LR);
         }
 
         else if (menu == 6) cariTokoEkstrem(LT, LR);

@@ -2,13 +2,13 @@
 
 **Kelompok 21 - IFX-49-01 PJJ** **Telkom University**
 
-[cite_start]Proyek ini adalah implementasi struktur data **Multi Linked-List** menggunakan bahasa C++ untuk memodelkan sistem pendataan Toko dan Barang dengan relasi **M ke N**[cite: 7, 8].
+Proyek ini adalah implementasi struktur data **Multi Linked-List** menggunakan bahasa C++ untuk memodelkan sistem pendataan Toko dan Barang dengan relasi **M ke N**.
 
 ## Anggota Tim
 | Nama | NIM |
 | :--- | :--- |
-| **Khaidir Maulana** | [cite_start]103042580001 [cite: 3] |
-| **Aulia Ayu Dyah Lestari** | [cite_start]103042580007 [cite: 4] |
+| **Khaidir Maulana** | 103042580001 |
+| **Aulia Ayu Dyah Lestari** | 103042580007 |
 
 ## Deskripsi Proyek
 Aplikasi ini memodelkan hubungan antara **Toko (Parent)** dan **Barang (Child)**.
@@ -17,7 +17,7 @@ Aplikasi ini memodelkan hubungan antara **Toko (Parent)** dan **Barang (Child)**
 * [cite_start]**Batasan:** Maksimal 5 toko dan maksimal 3 barang per toko[cite: 9, 10].
 
 ## Fitur Program
-[cite_start]Program memiliki fungsionalitas lengkap sebagai berikut [cite: 11-19]:
+Program memiliki fungsionalitas lengkap sebagai berikut :
 
 1.  **Input Data Toko**: Menambah data toko baru (Validasi Max 5).
 2.  **Input Data Barang**: Menambah barang ke toko tertentu (Validasi Max 3 per toko).
@@ -30,7 +30,7 @@ Aplikasi ini memodelkan hubungan antara **Toko (Parent)** dan **Barang (Child)**
 9.  **Hapus Barang (Spesifik)**: Menghapus barang hanya dari satu toko tertentu.
 
 ## Struktur File
-[cite_start]Pastikan file-file berikut tersedia dalam direktori project [cite: 26-33]:
+Pastikan file-file berikut tersedia dalam direktori project :
 * `main.cpp` - Program utama dan menu.
 * `listtoko.h` & `listtoko.cpp` - ADT untuk manajemen data Toko.
 * `listbarang.h` & `listbarang.cpp` - ADT untuk manajemen data Barang.
@@ -45,7 +45,7 @@ Aplikasi ini memodelkan hubungan antara **Toko (Parent)** dan **Barang (Child)**
 4.  Tambahkan seluruh file `.h` dan `.cpp` ke dalam project navigator.
 5.  Jalankan program dengan tombol **Run**.
 
-### [cite_start]💻 Menggunakan Code::Blocks (Windows) [cite: 35-48]
+### Menggunakan Code::Blocks (Windows)
 1.  Buka Code::Blocks, pilih **Create a new project**.
 2.  Pilih **Console Application**.
 3.  Pilih bahasa **C++**.
@@ -53,7 +53,7 @@ Aplikasi ini memodelkan hubungan antara **Toko (Parent)** dan **Barang (Child)**
 5.  Tekan **F9** (Build and Run) untuk menjalankan.
 
 ## Contoh Penggunaan
-[cite_start]Berikut adalah simulasi alur program [cite: 177-182]:
+Berikut adalah simulasi alur program :
 
 1.  User menginput toko: **ID T01**, Nama **Toko Makmur**.
 2.  User menginput barang ke toko tersebut: **ID B01**, Nama **Beras**, Harga **12000**.

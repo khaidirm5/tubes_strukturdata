@@ -37,6 +37,7 @@ void printBarangByToko(ListRelasi L, addressToko T);
 void printTokoByBarang(ListRelasi L, addressBarang B);
 void cariTokoEkstrem(ListToko LT, ListRelasi LR);
 void printTokoByNamaBarang(ListRelasi LR, std::string namaBarang);
+void searchBarangInToko(ListRelasi LR, addressToko T, std::string keyword);
 
 #endif
 

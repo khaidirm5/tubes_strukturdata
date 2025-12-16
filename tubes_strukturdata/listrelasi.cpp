@@ -135,21 +135,47 @@ void cariTokoEkstrem(ListToko LT, ListRelasi LR) {
     cout << "Toko Tersedikit : " << minT->info.idToko
          << " (" << min << " barang)\n";
 }
-void printTokoByNamaBarang(ListRelasi LR, std::string namaBarang) {
-    std::cout << "\n>> Mencari Toko yang menjual: " << namaBarang << std::endl;
-    
+
+void printTokoByNamaBarang(ListRelasi LR, string namaBarang) {
+    std::cout << "Toko yang menjual '" << namaBarang << "':" << std::endl;
     addressRelasi P = LR.first;
     bool found = false;
-    
+
     while (P != nullptr) {
         if (P->barang->info.namaBarang == namaBarang) {
-            std::cout << "- Toko: " << P->toko->info.namaToko << std::endl;
+            std::cout << "- " << P->toko->info.namaToko << std::endl;
             found = true;
         }
         P = P->next;
     }
-    
+
     if (!found) {
-        std::cout << "(Tidak ada toko yang menjual barang dengan nama tersebut)" << std::endl;
+        std::cout << "(Barang tidak ditemukan di toko manapun)" << std::endl;
+    }
+}
+void searchBarangInToko(ListRelasi LR, addressToko T, std::string keyword) {
+    if (T == nullptr) return;
+
+    std::cout << "Mencari '" << keyword << "' di Toko " << T->info.namaToko << "...\n";
+    
+    addressRelasi P = LR.first;
+    bool found = false;
+
+    while (P != nullptr) {
+        // Cek apakah relasi ini milik toko T?
+        if (P->toko == T) {
+            // Cek apakah ID Barang COCOK -ATAU- Nama Barang COCOK dengan keyword
+            if (P->barang->info.idBarang == keyword || P->barang->info.namaBarang == keyword) {
+                std::cout << "DITEMUKAN! Barang: " << P->barang->info.namaBarang
+                          << " (ID: " << P->barang->info.idBarang << ")"
+                          << " | Harga: " << P->barang->info.harga << std::endl;
+                found = true;
+            }
+        }
+        P = P->next;
+    }
+
+    if (!found) {
+        std::cout << "Barang '" << keyword << "' TIDAK dijual di toko ini." << std::endl;
     }
 }
