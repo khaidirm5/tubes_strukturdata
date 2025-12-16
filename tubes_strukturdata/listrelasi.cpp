@@ -162,9 +162,7 @@ void searchBarangInToko(ListRelasi LR, addressToko T, std::string keyword) {
     bool found = false;
 
     while (P != nullptr) {
-        // Cek apakah relasi ini milik toko T?
         if (P->toko == T) {
-            // Cek apakah ID Barang COCOK -ATAU- Nama Barang COCOK dengan keyword
             if (P->barang->info.idBarang == keyword || P->barang->info.namaBarang == keyword) {
                 std::cout << "DITEMUKAN! Barang: " << P->barang->info.namaBarang
                           << " (ID: " << P->barang->info.idBarang << ")"
