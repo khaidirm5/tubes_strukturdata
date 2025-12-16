@@ -38,7 +38,8 @@ void tampilkanSemuaData(ListToko LT, ListRelasi LR) {
         }
 
         if (!ada) cout << "  (Belum ada barang)\n";
-        cout << "  Total Nilai Barang: Rp " << total << "\n\n";
+        else cout << "  Total Nilai Barang: Rp " << total << "\n";
+        cout << endl;
         T = T->next;
     }
 }
@@ -52,22 +53,31 @@ int main() {
     createListBarang(LB);
     createListRelasi(LR);
 
-    int menu;
+    int menu = 0;
+    
     do {
         cout << "\n===== MENU DATA PENJUALAN =====\n";
-        cout << "1. Input data toko (Poin a)\n";
-        cout << "2. Input data barang & Relasi (Poin b & c)\n";
-        cout << "3. Tampilkan seluruh data (Poin f)\n";
-        cout << "4. Cari Barang di Toko Tertentu (Poin g)\n";
-        cout << "5. Cari Toko yang Jual Barang Tertentu (Poin h)\n";
-        cout << "6. Statistik Toko Terlengkap dan Sedikit (Poin i)\n";
-        cout << "7. Hapus Data Toko (Poin d)\n";
-        cout << "8. Hapus Data Barang (Poin e)\n";
-        cout << "9. Hapus Barang dari Toko Tertentu (Poin e)\n";
+        cout << "1. Input data toko\n";
+        cout << "2. Input data barang\n";
+        cout << "3. Tampilkan seluruh data\n";
+        cout << "4. Cari Barang di Toko Tertentu \n";
+        cout << "5. Data Keseluruhan Toko beserta data barang\n";
+        cout << "6. Toko Terlengkap dan Sedikit\n";
+        cout << "7. Hapus Data Toko\n";
+        cout << "8. Hapus Data Barang\n";
+        cout << "9. Hapus Barang dari Toko Tertentu\n";
         cout << "0. Keluar\n";
         cout << "Pilih menu: ";
-        cin >> menu;
-        cin.ignore();
+
+        if (!(cin >> menu)) {
+            cout << "Input tidak valid! Harap masukkan angka.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            menu = -1;
+            continue;
+        } else {
+            cin.ignore(); 
+        }
 
         if (menu == 1) {
             if (LT.count >= 5) {
@@ -96,7 +106,7 @@ int main() {
             }
 
             if (hitungBarangToko(LR, T) >= 3) {
-                cout << "Data barang maksimal 3\n";
+                cout << "Data barang maksimal 3 per toko.\n";
                 continue;
             }
 
@@ -110,21 +120,14 @@ int main() {
         else if (menu == 3) tampilkanSemuaData(LT, LR);
 
         else if (menu == 4) {
-            string id;
-            cout << "ID Toko: ";
-            getline(cin, id);
-            addressToko T = findToko(LT, id);
-            if (T) printBarangByToko(LR, T);
-            else cout << "Toko tidak ditemukan.\n";
+            string nama;
+            cout << "Masukkan Nama Barang yang dicari (misal: Sabun): ";
+            getline(cin, nama);
+            printTokoByNamaBarang(LR, nama);
         }
 
         else if (menu == 5) {
-            string id;
-            cout << "ID Barang: ";
-            getline(cin, id);
-            addressBarang B = findBarang(LB, id);
-            if (B) printTokoByBarang(LR, B);
-            else cout << "Barang tidak ditemukan.\n";
+            tampilkanSemuaData(LT, LR);
         }
 
         else if (menu == 6) cariTokoEkstrem(LT, LR);
@@ -137,6 +140,9 @@ int main() {
             if (T) {
                 deleteAllRelasiToko(LR, T);
                 deleteToko(LT, id);
+                cout << "Data toko berhasil dihapus.\n";
+            } else {
+                cout << "Toko tidak ditemukan.\n";
             }
         }
 
@@ -149,6 +155,7 @@ int main() {
                 deleteAllRelasiBarang(LR, B);
                 deleteBarang(LB, id);
                 deleteBarangTanpaRelasi(LB, LR);
+                cout << "Data barang berhasil dihapus.\n";
             } else cout << "Barang tidak ditemukan.\n";
         }
 
@@ -163,7 +170,12 @@ int main() {
             if (T && B) {
                 if (!deleteRelasiTokoBarang(LR, T, B))
                     cout << "Barang tersebut tidak dijual di toko ini.\n";
+                else
+                    cout << "Barang berhasil dihapus dari toko.\n";
+                
                 deleteBarangTanpaRelasi(LB, LR);
+            } else {
+                cout << "Toko atau Barang tidak ditemukan.\n";
             }
         }
 
@@ -171,4 +183,3 @@ int main() {
 
     return 0;
 }
-

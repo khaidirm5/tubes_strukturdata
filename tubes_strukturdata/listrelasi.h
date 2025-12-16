@@ -36,6 +36,7 @@ int hitungBarangToko(ListRelasi L, addressToko T);
 void printBarangByToko(ListRelasi L, addressToko T);
 void printTokoByBarang(ListRelasi L, addressBarang B);
 void cariTokoEkstrem(ListToko LT, ListRelasi LR);
+void printTokoByNamaBarang(ListRelasi LR, std::string namaBarang);
 
 #endif
 
