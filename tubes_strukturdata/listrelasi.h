@@ -9,6 +9,8 @@
 #define LISTRELASI_H
 
 #include "relasi.h"
+#include "listtoko.h"
+#include "listbarang.h"
 
 struct ListRelasi {
     addressRelasi first;
@@ -16,11 +18,13 @@ struct ListRelasi {
 
 void createListRelasi(ListRelasi &L);
 void insertRelasi(ListRelasi &L, addressRelasi R);
+void printRelasi(ListRelasi L);
 
-/* DIPERBAIKI */
 void deleteAllRelasiToko(ListRelasi &L, addressToko T);
 void deleteAllRelasiBarang(ListRelasi &L, addressBarang B);
 
-void printRelasi(ListRelasi L);
+void printBarangByToko(ListRelasi LR, addressToko T);
+void printTokoByBarang(ListRelasi LR, addressBarang B);
+void cariTokoEkstrem(ListToko LT, ListRelasi LR);
 
 #endif
