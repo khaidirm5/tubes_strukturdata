@@ -63,3 +63,9 @@ Berikut adalah simulasi alur program :
 T01 | Toko Makmur
   - B01 | Beras (Rp 12000)
   Total Nilai Barang: Rp 12000
+  
+Lisensi
+Tugas Besar Struktur Data IFX-49-01PJJ Kelompok 21
+
+Kontak / Kontribusi
+khaidir.maulana67@gmail.com / auliaaayudyah@gmail.com
