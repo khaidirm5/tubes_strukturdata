@@ -8,23 +8,37 @@
 #ifndef LISTRELASI_H
 #define LISTRELASI_H
 
-#include "relasi.h"
 #include "listtoko.h"
 #include "listbarang.h"
+
+typedef struct elmRelasi *addressRelasi;
+
+struct elmRelasi {
+    addressToko toko;
+    addressBarang barang;
+    addressRelasi next;
+};
 
 struct ListRelasi {
     addressRelasi first;
 };
 
 void createListRelasi(ListRelasi &L);
-void insertRelasi(ListRelasi &L, addressRelasi R);
-void printRelasi(ListRelasi L);
+addressRelasi buatRelasi(addressToko T, addressBarang B);
+void insertRelasi(ListRelasi &L, addressRelasi P);
 
 void deleteAllRelasiToko(ListRelasi &L, addressToko T);
 void deleteAllRelasiBarang(ListRelasi &L, addressBarang B);
+bool deleteRelasiTokoBarang(ListRelasi &L, addressToko T, addressBarang B);
 
-void printBarangByToko(ListRelasi LR, addressToko T);
-void printTokoByBarang(ListRelasi LR, addressBarang B);
+int hitungBarangToko(ListRelasi L, addressToko T);
+
+void printBarangByToko(ListRelasi L, addressToko T);
+void printTokoByBarang(ListRelasi L, addressBarang B);
 void cariTokoEkstrem(ListToko LT, ListRelasi LR);
 
 #endif
+
+
+
+

@@ -6,46 +6,53 @@
 //
 
 #include "listtoko.h"
+#include <iostream>
 
 void createListToko(ListToko &L) {
     L.first = nullptr;
+    L.count = 0;
 }
 
 addressToko buatElmToko(infotypeToko x) {
-    addressToko P = new ElmToko;
+    addressToko P = new elmToko;
     P->info = x;
     P->next = nullptr;
     return P;
 }
 
-// INSERT FIRST
 void insertToko(ListToko &L, addressToko P) {
     P->next = L.first;
     L.first = P;
+    L.count++;
 }
 
-addressToko findToko(ListToko L, std::string id) {
+addressToko findToko(ListToko L, string id) {
     addressToko P = L.first;
-    while (P != nullptr && P->info.idToko != id) {
+    while (P) {
+        if (P->info.idToko == id) return P;
         P = P->next;
     }
-    return P;
+    return nullptr;
 }
 
-void deleteToko(ListToko &L, std::string id) {
+void deleteToko(ListToko &L, string id) {
     addressToko P = L.first, prev = nullptr;
-
-    while (P != nullptr && P->info.idToko != id) {
+    while (P) {
+        if (P->info.idToko == id) {
+            if (!prev) L.first = P->next;
+            else prev->next = P->next;
+            delete P;
+            L.count--;
+            return;
+        }
         prev = P;
         P = P->next;
     }
+}
 
-    if (P == nullptr) return;
-
-    if (prev == nullptr)
-        L.first = P->next;
-    else
-        prev->next = P->next;
-
-    delete P;
+void inputToko(infotypeToko &x) {
+    cout << "ID Toko   : ";
+    getline(cin, x.idToko);
+    cout << "Nama Toko : ";
+    getline(cin, x.namaToko);
 }

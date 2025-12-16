@@ -1,206 +1,89 @@
-#README – Multi Linked List Data Penjualan (Toko & Barang)
+# Data Penjualan – Multi Linked List
 
-Project ini mengimplementasikan **multi linked-list** untuk memodelkan hubungan antara **Toko** dan **Barang**.  
-Satu toko dapat menjual banyak barang, dan satu barang dapat dijual oleh banyak toko.
+## Deskripsi Singkat
+Proyek **Data Penjualan** merupakan implementasi struktur data **multi linked-list**
+untuk memodelkan hubungan antara **Toko** dan **Barang** beserta relasi keduanya.
+Satu toko dapat menjual banyak barang, dan satu barang dapat dijual oleh banyak toko
+(relasi M ke N).
 
-File ini berisi:
-1. **Penjelasan struktur dan fungsi bagian A–E (yang sudah selesai)**  
-2. **Instruksi lengkap untuk melanjutkan bagian F–I**  
+Project ini dibuat untuk memenuhi spesifikasi tugas Struktur Data dengan batasan
+maksimal **5 toko** dan **3 barang per toko**, serta telah melalui proses pengujian
+untuk seluruh kemungkinan interaksi user dan perbaikan bug.
 
----
+## Fitur
+- Input data toko (maksimal 5 toko)
+- Input data barang dan relasinya (maksimal 3 barang per toko)
+- Menampilkan seluruh data toko dan barang
+- Mencari barang pada toko tertentu
+- Mencari toko yang menjual barang tertentu
+- Menampilkan statistik toko terlengkap dan tersedikit
+- Menghapus data toko beserta seluruh relasinya
+- Menghapus data barang dari seluruh toko
+- Menghapus barang dari toko tertentu
+- Validasi input dan penanganan kesalahan user
 
-# 1. Struktur Project
+## Instalasi
 
-```
-/project
-│
-├── toko.h
-├── toko.cpp
-│
-├── barang.h
-├── barang.cpp
-│
-├── listtoko.h
-├── listtoko.cpp
-│
-├── listbarang.h
-├── listbarang.cpp
-│
-├── listrelasi.h
-├── listrelasi.cpp
-│
-├── relasi.h
-├── relasi.cpp
-│
-├── main.cpp
-│
-└── README.md
-```
+### Menggunakan Xcode
+1. Buka Xcode
+2. Pilih Create a new Xcode Project
+3. Pilih Command Line Tool
+4. Pilih Language: C++
+5. Tambahkan file berikut ke dalam project:
+   main.cpp  
+   listtoko.h  
+   listtoko.cpp  
+   listbarang.h  
+   listbarang.cpp  
+   listrelasi.h  
+   listrelasi.cpp  
+6. Jalankan program dengan tombol Run
 
-Semua file dipisah agar mudah dikerjakan.
+### Menggunakan Code::Blocks
+1. Buka Code::Blocks
+2. Pilih Create a new project
+3. Pilih Console Application
+4. Pilih C++
+5. Tambahkan file berikut ke dalam project:
+   main.cpp  
+   listtoko.h  
+   listtoko.cpp  
+   listbarang.h  
+   listbarang.cpp  
+   listrelasi.h  
+   listrelasi.cpp  
+6. Jalankan program dengan Build and Run (F9)
 
----
+## Penggunaan
+Setelah program dijalankan, akan tampil menu berikut:
+1. Input data toko  
+2. Input data barang & relasi  
+3. Tampilkan seluruh data  
+4. Cari barang di toko tertentu  
+5. Cari toko yang menjual barang tertentu  
+6. Statistik toko terlengkap/tersedikit  
+7. Hapus data toko  
+8. Hapus data barang  
+9. Hapus barang dari toko tertentu  
+0. Keluar  
 
-# 2. Penjelasan Bagian A–E (Sudah Selesai)
+User memilih nomor menu dan mengikuti instruksi input yang ditampilkan.
 
-## **A. Penambahan Data Toko (toko.h & toko.cpp)**
+## Contoh
+Contoh alur penggunaan program:
+Input toko dengan ID T01 dan nama Toko Makmur, kemudian input barang B01 dengan nama
+Beras dan harga 12000, maka hasil tampil data adalah:
+T01 | Toko Makmur  
+B01 | Beras (Rp 12000)  
+Total Nilai Barang: Rp 12000  
 
-Fungsi yang sudah dibuat:
-- `inputToko()` — mengisi data toko (ID, nama)
-- `createElmToko()` — membuat node toko
-- `insertToko()` — memasukkan node toko ke list
-- `deleteToko()` — menghapus node toko
+Jika user memilih menu hapus barang dan memasukkan ID B01, maka barang tersebut akan
+terhapus dari seluruh toko yang menjualnya.
 
-Struktur:
-- `struct Toko`
-- `struct ElmToko`
-- `ListToko`
+## Lisensi
+Tugas Besar Struktur Data IFX-49-01PJJ
+Kelompok 21
 
-Semua logika list **toko** sudah lengkap.
-
----
-
-## **B. Penambahan Data Barang (barang.h & barang.cpp)**
-
-Fungsi yang sudah dibuat:
-- `inputBarang()`
-- `createElmBarang()`
-- `insertBarang()`
-- `deleteBarang()`
-
-Struktur:
-- `struct Barang`
-- `struct ElmBarang`
-- `ListBarang`
-
-Semua logika list **barang** sudah selesai.
-
----
-
-## **C. Pembuatan Relasi Toko–Barang (relasi.h & relasi.cpp)**
-
-Fungsi yang sudah dibuat:
-- `buatRelasi(addressToko T, addressBarang B)`
-
-Struktur:
-- `struct ElmRelasi`
-- `ListRelasi`
-
-Relasi menyambungkan **toko** dan **barang** melalui pointer.
-
----
-
-## **D. Menghapus Toko (toko.cpp)**
-
-Fungsi `deleteToko()` sudah dibuat.  
-Catatan: Penghapusan relasi yang terkait toko ini **akan ditangani pada bagian F–I**.
-
----
-
-## **E. Menghapus Barang (barang.cpp)**
-
-Fungsi `deleteBarang()` sudah tersedia.  
-Relasi yang terhubung ke barang akan ditangani pada bagian lanjutan.
-
----
-
-# 3. Instruksi Melanjutkan Bagian F–I
-
-Bagian berikut harus dikerjakan.  
-Struktur dan pondasi datanya sudah lengkap — hanya tinggal menambahkan fungsi baru.
-
----
-
-## **F. Menampilkan Semua Toko dan Semua Barang yang Dijualnya**
-
-### File yang harus diedit:
-- Tambah *deklarasi* di **relasi.h**
-- Tambah *implementasi* di **relasi.cpp**
-- Tambah menu pemanggil di **main.cpp**
-
-### Fungsi yang harus dibuat:
-```
-void tampilSemuaTokoBesertaBarang(ListToko LT, ListRelasi LR);
-```
-
-### Cara kerja:
-1. Loop seluruh toko  
-2. Untuk setiap toko, cari relasi yang menunjuk ke toko itu  
-3. Tampilkan semua barang yang berelasi dengannya  
-4. Jika toko tidak punya relasi → tulis “Tidak menjual barang”  
-
----
-
-## **G. Menampilkan Barang yang Dijual oleh Satu Toko**
-
-### Tambahkan di:
-- Deklarasi → `relasi.h`
-- Implementasi → `relasi.cpp`
-- Menu → `main.cpp`
-
-### Fungsi yang harus dibuat:
-```
-void tampilBarangDariToko(addressToko T, ListRelasi LR);
-```
-
-### Cara kerja:
-- Loop relasi  
-- Jika `relasi->toko == T`, tampilkan barangnya  
-
----
-
-## **H. Menampilkan Toko yang Menjual Satu Barang**
-
-### Tambahkan di:
-- `relasi.h`
-- `relasi.cpp`
-- `main.cpp`
-
-### Fungsi:
-```
-void tampilTokoYangMenjualBarang(addressBarang B, ListRelasi LR);
-```
-
-### Cara kerja:
-- Loop relasi  
-- Jika `relasi->barang == B`, tampilkan tokonya  
-
----
-
-## **I. Menentukan Toko dengan Jualan Paling Lengkap dan Paling Sedikit**
-
-### Tambahkan di:
-- `relasi.h` (deklarasi)
-- `relasi.cpp` (implementasi)
-- `main.cpp` (menu)
-
-### Fungsi:
-```
-addressToko tokoPalingLengkap(ListToko LT, ListRelasi LR);
-addressToko tokoPalingSedikit(ListToko LT, ListRelasi LR);
-```
-
-### Cara kerja:
-1. Untuk setiap toko, hitung jumlah relasi yang mengarah ke barang  
-2. Simpan nilai terbesar dan terkecil  
-3. Kembalikan alamat tokonya  
-4. Tampilkan hasilnya di menu  
-
----
-
-#4. Catatan untuk Pengerjaan Selanjutnya
-
-- Seluruh fungsi lanjutan **harus ditambah di relasi.cpp**, bukan di file lain  
-- Jangan lupa menambahkan *deklarasi* fungsi di relasi.h  
-- Menu di main.cpp perlu ditambah untuk memanggil fungsi F–I  
-- Gunakan pola kode yang sudah ada agar tetap konsisten  
-- Struktur data telah dirapikan agar mudah dikembangkan
-
----
-
-# Selesai
-
-README ini memuat:
-- Penjelasan lengkap bagian A–E  
-- Instruksi teknis & detail untuk melanjutkan bagian F–I  
-
+## Kontak / Kontribusi
+khaidir.maulana67@gmail.com
+auliaaayudyah@gmail.com

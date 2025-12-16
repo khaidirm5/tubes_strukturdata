@@ -4,38 +4,36 @@
 //
 //  Created by KHAIDIR MAULANA on 12/12/25.
 //
-#include <iostream>
-#include "listrelasi.h"
-#include "listtoko.h"
-#include "listbarang.h"
 
+#include "listrelasi.h"
+#include <iostream>
 
 void createListRelasi(ListRelasi &L) {
     L.first = nullptr;
 }
 
-void insertRelasi(ListRelasi &L, addressRelasi R) {
-    R->next = L.first;
-    L.first = R;
+addressRelasi buatRelasi(addressToko T, addressBarang B) {
+    addressRelasi P = new elmRelasi;
+    P->toko = T;
+    P->barang = B;
+    P->next = nullptr;
+    return P;
+}
+
+void insertRelasi(ListRelasi &L, addressRelasi P) {
+    P->next = L.first;
+    L.first = P;
 }
 
 void deleteAllRelasiToko(ListRelasi &L, addressToko T) {
-    addressRelasi P = L.first;
-    addressRelasi prev = nullptr;
-
-    while (P != nullptr) {
+    addressRelasi P = L.first, prev = nullptr;
+    while (P) {
         if (P->toko == T) {
-            addressRelasi temp = P;
-
-            if (prev == nullptr) {
-                L.first = P->next;
-                P = L.first;
-            } else {
-                prev->next = P->next;
-                P = P->next;
-            }
-
-            delete temp;
+            addressRelasi del = P;
+            if (!prev) L.first = P->next;
+            else prev->next = P->next;
+            P = P->next;
+            delete del;
         } else {
             prev = P;
             P = P->next;
@@ -44,22 +42,14 @@ void deleteAllRelasiToko(ListRelasi &L, addressToko T) {
 }
 
 void deleteAllRelasiBarang(ListRelasi &L, addressBarang B) {
-    addressRelasi P = L.first;
-    addressRelasi prev = nullptr;
-
-    while (P != nullptr) {
+    addressRelasi P = L.first, prev = nullptr;
+    while (P) {
         if (P->barang == B) {
-            addressRelasi temp = P;
-
-            if (prev == nullptr) {
-                L.first = P->next;
-                P = L.first;
-            } else {
-                prev->next = P->next;
-                P = P->next;
-            }
-
-            delete temp;
+            addressRelasi del = P;
+            if (!prev) L.first = P->next;
+            else prev->next = P->next;
+            P = P->next;
+            delete del;
         } else {
             prev = P;
             P = P->next;
@@ -67,102 +57,81 @@ void deleteAllRelasiBarang(ListRelasi &L, addressBarang B) {
     }
 }
 
-void printRelasi(ListRelasi L) {
+bool deleteRelasiTokoBarang(ListRelasi &L, addressToko T, addressBarang B) {
+    addressRelasi P = L.first, prev = nullptr;
+    while (P) {
+        if (P->toko == T && P->barang == B) {
+            if (!prev) L.first = P->next;
+            else prev->next = P->next;
+            delete P;
+            return true;
+        }
+        prev = P;
+        P = P->next;
+    }
+    return false;
+}
+
+int hitungBarangToko(ListRelasi L, addressToko T) {
+    int count = 0;
     addressRelasi P = L.first;
-    while (P != nullptr) {
-        std::cout << P->toko->info.namaToko
-                  << " menjual "
-                  << P->barang->info.namaBarang << std::endl;
+    while (P) {
+        if (P->toko == T) count++;
         P = P->next;
     }
+    return count;
 }
 
-void printBarangByToko(ListRelasi LR, addressToko T) {
-    if (T == nullptr) return;
-    
-    std::cout << "\n>> Daftar Barang di Toko: " << T->info.namaToko << std::endl;
-    
-    addressRelasi P = LR.first;
-    bool found = false;
-    
-    while (P != nullptr) {
+/* ====== OUTPUT ====== */
+
+void printBarangByToko(ListRelasi L, addressToko T) {
+    addressRelasi P = L.first;
+    bool ada = false;
+    while (P) {
         if (P->toko == T) {
-            std::cout << "- " << P->barang->info.namaBarang
-                      << " (Rp " << P->barang->info.harga << ")" << std::endl;
-            found = true;
+            cout << P->barang->info.idBarang << " "
+                 << P->barang->info.namaBarang << endl;
+            ada = true;
         }
         P = P->next;
     }
-    
-    if (!found) {
-        std::cout << "(Toko ini belum menjual barang apapun)" << std::endl;
-    }
+    if (!ada) cout << "(Tidak ada barang)\n";
 }
 
-void printTokoByBarang(ListRelasi LR, addressBarang B) {
-    if (B == nullptr) return;
-    
-    std::cout << "\n>> Toko yang menjual: " << B->info.namaBarang << std::endl;
-    
-    addressRelasi P = LR.first;
-    bool found = false;
-    
-    while (P != nullptr) {
+void printTokoByBarang(ListRelasi L, addressBarang B) {
+    addressRelasi P = L.first;
+    bool ada = false;
+    while (P) {
         if (P->barang == B) {
-            std::cout << "- " << P->toko->info.namaToko << std::endl;
-            found = true;
+            cout << P->toko->info.idToko << endl;
+            ada = true;
         }
         P = P->next;
     }
-    
-    if (!found) {
-        std::cout << "(Belum ada toko yang menjual barang ini)" << std::endl;
-    }
+    if (!ada) cout << "(Tidak ada toko)\n";
 }
 
 void cariTokoEkstrem(ListToko LT, ListRelasi LR) {
-    addressToko P = LT.first;
-    if (P == nullptr) {
-        std::cout << "Data toko kosong." << std::endl;
+    addressToko T = LT.first;
+    if (!T) {
+        cout << "Belum ada toko.\n";
         return;
     }
 
-    addressToko maxToko = nullptr;
-    addressToko minToko = nullptr;
-    int maxCount = -1;
-    int minCount = 9999;
+    addressToko maxT = T, minT = T;
+    int max = hitungBarangToko(LR, T);
+    int min = max;
 
-    while (P != nullptr) {
-        int count = 0;
-        addressRelasi R = LR.first;
-        
-        while (R != nullptr) {
-            if (R->toko == P) {
-                count++;
-            }
-            R = R->next;
-        }
-
-        if (count > maxCount) {
-            maxCount = count;
-            maxToko = P;
-        }
-        
-        if (count < minCount) {
-            minCount = count;
-            minToko = P;
-        }
-
-        P = P->next;
+    T = T->next;
+    while (T) {
+        int j = hitungBarangToko(LR, T);
+        if (j > max) { max = j; maxT = T; }
+        if (j < min) { min = j; minT = T; }
+        T = T->next;
     }
 
-    std::cout << "\n=== STATISTIK TOKO ===" << std::endl;
-    if (maxToko != nullptr) {
-        std::cout << "Toko Paling Lengkap: " << maxToko->info.namaToko
-                  << " (Total: " << maxCount << " barang)" << std::endl;
-    }
-    if (minToko != nullptr) {
-        std::cout << "Toko Paling Sedikit: " << minToko->info.namaToko
-                  << " (Total: " << minCount << " barang)" << std::endl;
-    }
+    cout << "Toko Terlengkap : " << maxT->info.idToko
+         << " (" << max << " barang)\n";
+    cout << "Toko Tersedikit : " << minT->info.idToko
+         << " (" << min << " barang)\n";
 }
