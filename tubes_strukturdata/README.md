@@ -38,7 +38,7 @@ Pastikan file-file berikut tersedia dalam direktori project :
 
 ## Instalasi & Cara Menjalankan
 
-### [cite_start] Menggunakan Xcode (macOS) [cite: 21-34]
+### Menggunakan Xcode (macOS) 
 1.  Buka Xcode, pilih **Create a new Xcode Project**.
 2.  Pilih **Command Line Tool**.
 3.  Pilih Language: **C++**.
